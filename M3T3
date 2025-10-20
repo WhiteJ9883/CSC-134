@@ -1,0 +1,63 @@
+// CSC 134
+// M3T3
+// Joseph White
+// 10/19/2025
+// Craps Game Simulation
+// Start with dice rolls and play a basic game of craps
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    // seed the random number generator
+    int seed = time(0);
+    srand(seed);
+
+    const int SIDES = 6;
+    int die1, die2, sum;
+    int point = 0;
+
+    cout << "Welcome to Craps!" << endl;
+    cout << "Rolling the dice..." << endl;
+
+    // first roll
+    die1 = (rand() % SIDES) + 1;
+    die2 = (rand() % SIDES) + 1;
+    sum = die1 + die2;
+
+    cout << "You rolled " << die1 << " + " << die2 << " = " << sum << endl;
+
+    // Determine outcome of first roll
+    if (sum == 7 || sum == 11) {
+        cout << "You win on the first roll! 🎉" << endl;
+    } else if (sum == 2 || sum == 3 || sum == 12) {
+        cout << "Craps! You lose on the first roll." << endl;
+    } else {
+        // set the point
+        point = sum;
+        cout << "Your point is " << point << ". Keep rolling until you hit it again (but avoid 7)!" << endl;
+
+        // keep rolling until point or 7
+        do {
+            die1 = (rand() % SIDES) + 1;
+            die2 = (rand() % SIDES) + 1;
+            sum = die1 + die2;
+            cout << "You rolled " << die1 << " + " << die2 << " = " << sum << endl;
+
+            if (sum == point) {
+                cout << "You rolled your point! You win! 🎲" << endl;
+                break;
+            } else if (sum == 7) {
+                cout << "You rolled a 7. You lose!" << endl;
+                break;
+            }
+
+        } while (true);
+    }
+
+    cout << "Game over. Thanks for playing!" << endl;
+
+    return 0;
+}
